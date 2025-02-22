@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>9x9 Project</title>
+  <!-- Bootstrap -->
+  <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
+  <link href="css/MDstyles.css" rel="stylesheet" type="text/css">
+  <link href="css/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="icon" type="image/png" href="images/main_logo.svg">
+
+  <style>
+    #user-info img {
+      width: 100px;
+      height: 100px;
+      border: 2px solid black;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    #user-info h1 {
+      margin-right: 20px;
+      font-size: 45;
+      margin-top: 23px;
+    }
+
+    #user-info {
+      justify-content: center;
+      display: flex;
+      padding: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Dropdown Bar -->
+  <div id="navbar-placeholder"></div>
+
+  <script src="/js/9x9puzzles.js">  // include helper functions </script>
+  <script>
+    //load the navbar and footer
+    document.addEventListener('DOMContentLoaded', function () {
+      loadNavbar()
+        .then(() => {
+          checkLoginStatus();
+        })
+        .catch(error => {
+          console.error('Error loading navbar:', error);
+        });
+
+      loadFooter();
+      loadPuzzleOfDay();
+      loadNewestPuzzles();
+      displayUserInfo();
+    });
+
+    function displayUserInfo() {
+      const username = localStorage.getItem('username');
+      const animalImage = localStorage.getItem('animal_image');
+      const animal = localStorage.getItem('animal');
+
+      if (animal && animalImage && username) {
+        const userInfoDiv = document.getElementById('user-info');
+        if (userInfoDiv) {
+          userInfoDiv.innerHTML = `
+          <h1><i>Welcome, ${username}</i>!</h1>
+          <img src="${animalImage}" alt="${animal}">
+        `;
+        } else {
+          console.log("Element with ID 'user-info' not found.");
+        }
+      } else {
+        console.log("Username or animal image not found in localStorage.");
+      }
+    }
+  </script>
+
+  <div id="user-info" class="text-center my-4"></div>
+  <!-- Tag Line -->
+  <h4 class="text-center">Hand-crafted sudoku puzzles that solve logically and uniquely</h4>
+
+  <!-- Puzzle of the Day -->
+  <div class="jumbotron">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h1 class="text-center">Puzzle of the Day</h1>
+          <p class="text-center">The puzzle of the day is chosen randomly from among all the puzzles on the site.
+            Sometimes it will be one of our puzzles; sometimes it will be one of our students' puzzles. Sometimes it
+            will be a very easy, introductory puzzle. Other times, it may be a beast! Either way, we hope you enjoy
+            solving! </p>
+          <p>&nbsp;</p>
+          <p>&nbsp;</p>
+        </div>
+      </div> <!--  row div -->
+
+      <div id="puzzle_of_day"></div>
+      <script>
+        function getDayOfYear() {
+          const now = new Date();
+          const startOfYear = new Date(now.getFullYear(), 0, 0);
+          const diff = now - startOfYear;
+          const oneDay = 1000 * 60 * 60 * 24;
+          const dayOfYear = Math.floor(diff / oneDay);
+          return dayOfYear;
+        }
+
+        // Function to generate HTML content from JSON data
+        function generatePuzzleOfDay(jsonData) {
+          let i = getDayOfYear() % jsonData.length;
+          let jj = 179 * i * i % jsonData.length;
+          let html = '';
+          html += generatePuzzleDiv(jsonData[jj]);
+          document.getElementById('puzzle_of_day').innerHTML = html;
+        }
+
+        // Main function to fetch data and generate puzzle cards
+        async function loadPuzzleOfDay() {
+          const puzData = await fetchCompletePuzzlesData();
+          if (puzData) {
+            generatePuzzleOfDay(puzData);
+          }
+        }
+      </script>
+    </div>
+  </div>
+
+  <!-- New Puzzles -->
+  <div class="jumbotron">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h1 class="text-center">Newest Puzzles</h1>
+          <p>&nbsp;</p>
+          <p>&nbsp;</p>
+
+          <div class="container">
+            <div id="cards2"></div>
+            <script>
+              // Function to generate HTML content from JSON data
+              function generatePuzzle(puzData) {
+                let html = '';
+                let alternating = 0;
+                for (let i = 0; i < 5; i++) {
+                  html += generatePuzzleDivAlternating(puzData[i], alternating++);
+                  html += "<br>"
+                }
+                document.getElementById('cards2').innerHTML = html;
+              }
+
+              // Main function to fetch data and generate puzzle cards
+              async function loadNewestPuzzles() {
+                const jsonData = await fetchPuzzlesData();
+                if (jsonData) {
+                  generatePuzzle(jsonData);
+                }
+              }
+
+            </script>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Video Solves -->
+  <div class="jumbotron">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h1 class="text-center">Video Solves</h1>
+          <p class="text-center">We are honored to have had several of our puzzles featured by YouTube streamers. </p>
+
+          <p class="text-center"><a class="btn btn-primary btn-lg" href="video_features" role="button">See a list of all
+              video solves</a> </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- LMD -->
+  <div class="jumbotron">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h1 class="text-center">Solve and Rate our Puzzles on Logic Masters Deutschland</h1>
+          <p class="text-center">We really appreciate feedback and recorded solves of our puzzles, especially on Logic
+            Masters Deutschland. We post only our favorites there and it's the best place to raise visibility for our
+            puzzles. If you have the time and inclination, we would be delighted if you log your solve there. </p>
+
+          <p class="text-center"><a class="btn btn-primary btn-lg"
+              href="https://logic-masters.de/Raetselportal/Suche/erweitert.php?suchautor=FullDeck-Missing,%20FullDeck"
+              role="button" target="_blank" rel="noopener noreferrer">See our puzzles on LMD</a> </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Showcase Puzzles -->
+  <div class="jumbotron">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h1 class="text-center">Showcase Puzzles</h1>
+          <p class="text-center">Showcase Puzzles are the ones we are most proud of. They range from easy to ... less
+            easy. We are always happy to provide a hint or nudge if you get stuck. Each of these puzzles has an
+            estimated difficulty based on reactions from solvers in the community.</p>
+
+          <p class="text-center"><a class="btn btn-primary btn-lg" href="showcase_puzzles" role="button">Explore the
+              showcase</a> </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Puzzle Collections -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 mb-4 mt-2 text-center">
+        <h1>Puzzle Collections&nbsp;</h1>
+      </div>
+    </div>
+  </div>
+  <div class="container ">
+    <div class="row">
+      <div class="col-lg-3 col-md-6 col-sm-12 text-center">
+        <a href="brassica">
+          <img class="rounded-circle" alt="140x140" style="width: 140px; height: 140px;" src="images/brassica.jpg"
+            data-holder-rendered="true">
+        </a>
+        <a href="brassica">
+          <h3 href="brassica">Brassica Puzzles</h3>
+        </a>
+        <p>Beginning solvers might still have difficulty with the "easy" GAS puzzles. We have been setting a series of
+          puzzles for friends who are still just beginning to explore variants in sudoku. These pre-GAS puzzles we have
+          chosen to call Brassica puzzles. They are often intentionally overclued to provide many routes through the
+          puzzle.</p>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-12 text-center">
+        <a href="gas">
+          <img class="rounded-circle" alt="140x140" style="width: 140px; height: 140px;" src="images/gas.jpg"
+            data-holder-rendered="true">
+        </a>
+        <a href="gas">
+          <h3 href="gas">GAS Puzzles</h3>
+        </a>
+        <p>Sudoku Clover, Philip Newman, and Sam Cappleman-Lynes introduced the idea of "genuinely approachable sudoku"
+          puzzles, known affectionately as GAS puzzles. These are puzzles that are designed to be at a level that most
+          solvers have a hope of completing even if it takes a while to follow the logic or learn the variant rules.</p>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-12 text-center">
+        <a href="indigestion">
+          <img class="rounded-circle" alt="140x140" style="width: 140px; height: 140px;" src="images/indigestion.jpg"
+            data-holder-rendered="true">
+        </a>
+        <a href="indigestion">
+          <h3 href="indigestion">Indigestion Puzzles</h3>
+        </a>
+        <p>In the same vein, post-GAS-difficulty puzzles we have chosen to call Indigestion puzzles. Some of the
+          deductions, while logical, may cause brief heartburn, ranging from mild to severe, as you look for how
+          constraints interact to provide information. </p>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-12 text-center">
+        <a href="heartburn">
+          <img class="rounded-circle" alt="140x140" style="width: 140px; height: 140px;" src="images/heartburn.jpg"
+            data-holder-rendered="true">
+        </a>
+        <a href="heartburn">
+          <h3 href="heartburn">Heartburn Puzzles</h3>
+        </a>
+        <p>Somewhat more intense than mild indigestion are the Heartburn puzzles, which involve subtle interactions
+          between constraints and might leverage grid geometry. Intended for more experienced solvers and those seeking
+          a challenge, these puzzles may leave you staring at the screen for a bit while you look for the next
+          deduction.</p>
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <!-- Contact Us -->
+
+  <!-- Footer  -->
+  <div id="footer-placeholder"></div>
+
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="js/jquery-3.4.1.min.js"></script>
+
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap-4.4.1.js"></script>
+</body>
+
+</html>
