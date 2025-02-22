@@ -5,194 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>9x9 Welcome</title>
+    
     <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-    <link href="css/MDstyles.css" rel="stylesheet" type="text/css">
+    <link href="css/MDstyles.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    
     <link rel="icon" type="image/png" href="images/main_logo.svg">
     <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Tilt+Warp&display=swap" rel="stylesheet">
-
-    <style>
-        html, body {
-            background-color: white;
-            font-family: 'Golos Text', sans-serif;
-            margin: 0;
-            padding: 0;
-            height: 100%;
-        }
-
-        .navbar-custom {
-            background-color: #008CCe;
-            font-size: 30pt;
-            text-transform: capitalize;
-            padding: 0;
-        }
-
-        .nav-link {
-            color: white !important;
-            text-decoration: none !important;
-        }
-
-        .navbar-nav {
-            align-items: center;
-        }
-
-        .navbar-brand img {
-            height: 45px;
-            width: 130px;
-        }
-
-        .custom-toggler .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-        }
-
-        .dropdown-item a:link {
-            color: black;
-        }
-
-        .content-container {
-            flex-grow: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #welcome {
-            text-align: center;
-            text-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2);
-            animation: fadeIn 2s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        .container {
-            padding-left: 0;
-            padding-right: 0;
-        }
-
-        #title-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding-bottom: 10%;
-        }
-
-        img {
-            align-items: center;
-            width: 220px;
-            height: 220px;
-            padding-left: 20px;
-        }
-
-        i {
-            font-size: 30pt;
-        }
-
-        h1 {
-            color: black;
-            text-transform: capitalize;
-            font-size: 75pt;
-            font-family: 'Tilt Warp', sans-serif;
-            font-weight: bold;
-            letter-spacing: 1.6px;
-            cursor: default;
-        }
-
-        a:visited {
-            color: white;
-        }
-
-        #start-button,
-        #already-button {
-            display: inline-block;
-            width: 450px;
-            outline: none;
-            cursor: pointer;
-            font-size: 18px;
-            line-height: 48px;
-            border-radius: 300px;
-            transition-property: background-color, border-color, color, box-shadow, filter;
-            transition-duration: .4s;
-            border: 1px solid transparent;
-            letter-spacing: 2px;
-            min-width: 160px;
-            text-transform: uppercase;
-            white-space: normal;
-            font-weight: 700;
-            text-align: center;
-            padding: 0 48px;
-            color: #fff;
-            height: 48px;
-            font-family: 'Golos Text', sans-serif;
-            box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-            background-color: rgb(14, 198, 54);
-        }
-
-        #already-button {
-            background-color: rgb(208, 25, 119);
-            margin-top: 50px;
-        }
-
-        #start-button:hover {
-            transform: scale(1.04);
-            background-color: #21e065;
-        }
-
-        #already-button:hover {
-            transform: scale(1.04);
-            background-color: #ed51e0;
-        }
-
-        @media (max-width: 1200px) {
-            h1 {
-                font-size: 50pt;
-            }
-
-            img {
-                width: 180px;
-                height: 180px;
-            }
-
-            #start-button,
-            #already-button {
-                width: 300px;
-                font-size: 16px;
-            }
-        }
-
-        @media (max-width: 992px) {
-            h1 {
-                font-size: 35pt;
-            }
-
-            img {
-                width: 100px;
-                height: 100px;
-            }
-
-            #start-button,
-            #already-button {
-                width: 200px;
-                font-size: 12px;
-            }
-        }
-
-        .body-container {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-    </style>
 </head>
 
 <body>
@@ -200,13 +23,14 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="/js/9x9puzzles.js"></script>
+    
     <script> 
-    document.addEventListener('DOMContentLoaded', function(){
-        loadNavbar();
-        loadFooter();
-    });
-
+        document.addEventListener('DOMContentLoaded', function(){
+            loadNavbar();
+            loadFooter();
+        });
     </script>
+
     <div class="body-container">
         <!-- Navbar -->
         <div id="navbar-placeholder"></div>
@@ -221,14 +45,13 @@
                 <a href="pack1.html">
                     <button id="start-button"> Get Started! </button>
                 </a>
-                <!-- <br>
-                <a href="login">
-                    <button id="already-button"> Already have an account? </button>
-                </a> -->
             </div>
         </div>
+
+        <!-- Footer -->
         <div id="footer-placeholder"></div>
     </div>
 </body>
 
 </html>
+
