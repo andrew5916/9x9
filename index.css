@@ -12,7 +12,7 @@ html, body {
     background-color: #008CCe;
     font-size: 30pt;
     text-transform: capitalize;
-    padding: 0;
+    padding: 1;
 }
 
 .nav-link {
