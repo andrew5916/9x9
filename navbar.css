@@ -179,7 +179,7 @@
     }
 
     .navbar__toggle .bar{
-        display: block;
+        display: flex;
         cursor: pointer;
     }
 
